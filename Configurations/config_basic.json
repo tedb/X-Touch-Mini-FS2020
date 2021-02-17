@@ -1,0 +1,145 @@
+{
+  "$schema": "./config.schema.json",
+  "version":
+  {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "encoders": [
+    {
+      "index": 1,
+      "event_up": "KOHLSMAN_INC",
+      "event_down": "KOHLSMAN_DEC",
+      "event_press": "BAROMETRIC"
+    },
+    {
+      "index": 2,
+      "event_up": "HEADING_BUG_INC",
+      "event_down": "HEADING_BUG_DEC",
+      "event_press": {
+        "type": "condition",
+        "event": [ "{% set heading = (data.get_simvar_value('HEADING_INDICATOR') * 180 / 3.14) | round %}",
+                     "{{ data.trigger_event('HEADING_BUG_SET', heading) }}"],
+        "description": "Set heading bug to current heading"
+      }
+    },
+    {
+      "index": 3,
+      "event_up": "VOR1_OBI_INC",
+      "event_down": "VOR1_OBI_DEC",
+      "event_press": {
+        "type": "condition",
+        "event": [ "{% set heading = (data.get_simvar_value('HEADING_INDICATOR') * 180 / 3.14) | round %}",
+                     "{{ data.trigger_event('VOR1_SET', heading) }}"],
+        "description": "Set CRS1 bug to current heading"
+      }
+    },
+    {
+      "index": 4
+    },
+    {
+      "index": 5
+    },
+    {
+      "index": 6,
+      "event_up": "NAV1_RADIO_WHOLE_INC",
+      "event_down": "NAV1_RADIO_WHOLE_DEC",
+      "alternate_event_up": "NAV1_RADIO_FRACT_INC",
+      "alternate_event_down": "NAV1_RADIO_FRACT_DEC",
+      "event_short_press": "{alternate}",
+      "event_long_press": "NAV1_RADIO_SWAP"
+    },
+    {
+      "index": 7,
+      "event_up": "ELEV_TRIM_UP",
+      "event_down": "ELEV_TRIM_DN",
+      "event_short_press": {
+        "event": "AXIS_ELEV_TRIM_SET",
+        "type": "manual",
+        "value": 0,
+        "description": "Reset elevator trim to 0"
+      }
+    },
+    {
+      "index": 8,
+      "event_up": "FLAPS_INCR",
+      "event_down": "FLAPS_DECR",
+      "event_short_press": "FLAPS_UP",
+      "event_long_press": "FLAPS_DOWN"
+    }
+  ],
+  "buttons": [
+    {
+      "index": 1,
+      "event_press": "GEAR_UP"
+    },
+    {
+      "index": 2,
+      "event_press": "TOGGLE_WATER_RUDDER"
+    },
+    {
+      "index": 3
+    },
+    {
+      "index": 4
+    },
+    {
+      "index": 5
+    },
+    {
+      "index": 6
+    },
+    {
+      "index": 7
+    },
+    {
+      "index": 8,
+      "event_press": "PITOT_HEAT_TOGGLE",
+      "simvar_led": "PITOT_HEAT"
+    },
+    {
+      "index": 9,
+      "event_press": "GEAR_DOWN",
+      "simvar_led": "GEAR_HANDLE_POSITION"
+    },
+    {
+      "index": 10,
+      "event_press": "GEAR_DOWN",
+      "simvar_led": "CARB_HEAT_AVAILABLE"
+    },
+    {
+      "index": 11
+    },
+    {
+      "index": 12
+    },
+    {
+      "index": 13
+    },
+    {
+      "index": 14
+    },
+    {
+      "index": 15
+    },
+    {
+      "index": 16
+    }
+  ],
+  "faders": [
+    {
+      "index": 1,
+      "event_change": "THROTTLE_SET",
+      "min_value": 0,
+      "max_value": 16383
+    }
+  ],
+  "triggers": [
+    {
+      "simvar": "FLAPS_HANDLE_INDEX",
+      "trigger_type": "encoder",
+      "trigger_index": 8
+    }
+  ]
+}
