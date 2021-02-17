@@ -8,6 +8,10 @@
     {
       "aircraft_contains": "A320",
       "file": "config_a320.json"
+    },
+    {
+      "aircraft_contains": "172",
+      "file": "config_basic.json"
     }
   ]
 }
